@@ -52,6 +52,9 @@ This was a dry run. Add --apply to move the files.
 - Hidden files (like `.DS_Store`) are skipped.
 - If a file with the same name already exists in the destination, it is
   **skipped, never overwritten**.
+- If a plain file has the same name as a category folder (for example a file
+  called `Images`), files for that category are skipped with a warning,
+  because the folder can't be created.
 - Running it again is safe: already-sorted files are not moved again.
 - There is no undo. Always do a dry run first.
 
@@ -75,9 +78,3 @@ pytest.ini             pytest settings
 requirements-dev.txt   development dependencies (pytest)
 sample_downloads/      fake files for trying it out (not in git)
 ```
-
-## Known limitations
-
-- A file with no extension named `Other` (or `other` on macOS) crashes the
-  script with `FileExistsError`, because it collides with the `Other/`
-  folder the script tries to create.

@@ -58,6 +58,12 @@ def execute_moves(moves: list[tuple[Path, Path]], dry_run: bool) -> Counter:
 
     for source, destination in moves:
         category = destination.parent.name
+        category_dir = destination.parent
+        if category_dir.exists() and not category_dir.is_dir():
+            # A plain file already has the category folder's name,
+            # so the folder can't be created.
+            print(f"SKIP {source.name}: a file named {category} is in the way")
+            continue
         if destination.exists():
             print(f"SKIP {source.name}: {category}/{source.name} already exists")
             continue
